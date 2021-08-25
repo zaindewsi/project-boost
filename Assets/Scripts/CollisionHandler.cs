@@ -5,6 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+  [SerializeField] float levelLoadDelay = 2f;
+  [SerializeField] AudioClip success;
+  [SerializeField] AudioClip crash;
+
+  AudioSource audioSource;
+
+  void Start()
+  {
+    audioSource = GetComponent<AudioSource>();
+  }
+
+
   private void OnCollisionEnter(Collision other)
   {
     switch (other.gameObject.tag)
@@ -13,22 +25,29 @@ public class CollisionHandler : MonoBehaviour
         Debug.Log("Friendly");
         break;
       case "Finish":
-        LoadNextLevel();
-        break;
-      case "Fuel":
-        Debug.Log("Fuel");
+        StartSuccessSequence();
         break;
       default:
-        ReloadLevel();
+        StartCrashSequence();
         break;
     }
   }
 
-  void ReloadLevel()
+  void StartSuccessSequence()
   {
-    int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-    SceneManager.LoadScene(currentSceneIndex);
+    audioSource.PlayOneShot(success);
+    GetComponent<Movement>().enabled = false;
+    Invoke("LoadNextLevel", levelLoadDelay);
   }
+
+  void StartCrashSequence()
+  {
+    audioSource.PlayOneShot(crash);
+    GetComponent<Movement>().enabled = false;
+    Invoke("ReloadLevel", levelLoadDelay);
+  }
+
+
 
   void LoadNextLevel()
   {
@@ -40,6 +59,13 @@ public class CollisionHandler : MonoBehaviour
       nextSceneIndex = 0;
     }
     SceneManager.LoadScene(nextSceneIndex);
-
   }
+
+  void ReloadLevel()
+  {
+    int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+    SceneManager.LoadScene(currentSceneIndex);
+  }
+
+
 }

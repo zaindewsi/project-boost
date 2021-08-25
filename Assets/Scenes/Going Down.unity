@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf3a198d7a5e420e9ff1bbdb558998c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelLoadDelay: 2
 --- !u!1001 &895305569
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -605,6 +606,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Friendly
       objectReference: {fileID: 0}
+    - target: {fileID: 6846712855131686570, guid: 32c56e96d3daf4c8aa5085975a5fd846, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b72ea35b1eb744bafa4a662af314fbd5, type: 2}
     - target: {fileID: 8810029665824692005, guid: 32c56e96d3daf4c8aa5085975a5fd846, type: 3}
       propertyPath: m_RootOrder
       value: 3
